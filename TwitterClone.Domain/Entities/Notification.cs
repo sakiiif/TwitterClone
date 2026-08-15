@@ -23,7 +23,7 @@ namespace TwitterClone.Domain.Entities
 
         public Guid UserId { get { return _userId; } }
         public string Type { get { return _type; } }
-        public string Message { get { return _message; } }
+        protected string Message { get { return _message; } set { _message = value; } }
         public bool IsRead { get { return _isRead; } set { _isRead = value; } }
     }
 }
