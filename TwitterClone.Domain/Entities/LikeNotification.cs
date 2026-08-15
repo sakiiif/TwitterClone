@@ -18,6 +18,10 @@ namespace TwitterClone.Domain.Entities
         public Guid TweetId { get { return _tweetId; } set { _tweetId = value; } }
         public Guid LikedByUserId { get { return _likedByUserId; } set { _likedByUserId = value; } }
         public Guid LikeId { get { return _likeId; } }
-        
+        public void AddMessage(string message)
+        {
+            Message = message;
+        }
+
     }
 }
