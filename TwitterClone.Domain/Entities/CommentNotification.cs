@@ -9,7 +9,7 @@ namespace TwitterClone.Domain.Entities
         private Guid _tweetId;
         private Guid _commentId;
         private Guid _commentByUserId;
-        public CommentNotification(Guid userId, string type, string message) : base(userId, "Comment", message) // constructor
+        public CommentNotification(Guid userId, string message) : base(userId, "Comment", message) // constructor
         {
 
         }
