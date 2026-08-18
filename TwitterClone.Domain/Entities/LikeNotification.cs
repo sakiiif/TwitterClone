@@ -10,9 +10,9 @@ namespace TwitterClone.Domain.Entities
         private Guid _likedByUserId;
         private Guid _likeId;
 
-        public LikeNotification (Guid userId, string message) : base(userId, "Like", message) // constructor
+        public LikeNotification (Guid userId, Guid likedBy) : base(userId, "Like") // constructor
         {
-
+            _likedByUserId = likedBy;
         }
 
         public Guid TweetId { get { return _tweetId; } set { _tweetId = value; } }
@@ -21,6 +21,11 @@ namespace TwitterClone.Domain.Entities
         public void AddMessage(string message)
         {
             Message = message;
+        }
+
+        public override string GetMessage()
+        {
+            return $"User Id: {_likedByUserId} liked your Tweet Id: {_tweetId}";
         }
 
     }

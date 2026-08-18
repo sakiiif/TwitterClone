@@ -22,7 +22,7 @@ namespace TwitterClone.Domain.Entities
             get { return _Content; }
             set { 
                 _Content = value;
-                ModifiedAt = DateTime.UtcNow;
+                ModifyAt(DateTime.UtcNow);
             }
         }
     }

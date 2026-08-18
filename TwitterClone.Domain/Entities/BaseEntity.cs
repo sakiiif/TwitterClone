@@ -18,6 +18,14 @@ namespace TwitterClone.Domain.Entities
             CreatedAt = DateTime.UtcNow;
         }
 
+        // methods
+
+        public void ModifyAt(DateTime modifiedAt)
+        {
+            // conditions checking, erron handling
+            ModifiedAt = modifiedAt;
+        }
+
         
     }
 }
