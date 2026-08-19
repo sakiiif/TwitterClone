@@ -7,7 +7,7 @@ namespace TwitterClone.Domain.Entities
     public sealed class SystemNotification : Notification
     {
         private string _criticalLevel; // how much critical
-        public SystemNotification(Guid userId, string message) : base(userId, "System", message) // constructor
+        public SystemNotification(Guid userId) : base(userId, "System") // constructor
         {
 
         }
@@ -16,6 +16,12 @@ namespace TwitterClone.Domain.Entities
         public void AddMessage(string message)
         {
             Message = message;
+        }
+
+        public override string GetMessage()
+        {
+            return $"Some System Related thing happened!";
+
         }
     }
 }

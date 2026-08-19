@@ -9,9 +9,10 @@ namespace TwitterClone.Domain.Entities
         private Guid _requestedByUserId;
         private Guid _requestedToUserId;
         private bool _isAccepted; // accept or reject
-        public FriendRequestNotification(Guid userId, string message) : base(userId, "FriendRequest", message) // constructor
+        public FriendRequestNotification(Guid userId, Guid requestedBy) : base(userId, "FriendRequest") // constructor
         {
-
+            _requestedByUserId = requestedBy;
+            _isAccepted = false;
         }
 
         public Guid RequestedByUserId { get { return _requestedByUserId; } set { _requestedByUserId = value; } }
@@ -20,6 +21,11 @@ namespace TwitterClone.Domain.Entities
         public void AddMessage(string message)
         {
             Message = message;
+        }
+
+        public override string GetMessage()
+        {
+            return $"User ID: {_requestedByUserId} sent you a friend request!";
         }
 
     }

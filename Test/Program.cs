@@ -1,1 +1,8 @@
-﻿Console.WriteLine("Hello, World!");
+﻿
+using Test;
+
+var obj = new main();
+
+obj.run();
+
+
