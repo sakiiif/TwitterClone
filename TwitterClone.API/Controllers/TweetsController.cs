@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TwitterClone.Domain.Entities;
 
 namespace TwitterClone.API.Controllers
 {
+    // api/Tweets
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class TweetsController : ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -14,6 +17,7 @@ namespace TwitterClone.API.Controllers
             _configuration = configuration;
         }
 
+        // GET /api/Tweets
         [HttpGet]
         public IActionResult GetTweets()
         {
@@ -31,6 +35,68 @@ namespace TwitterClone.API.Controllers
                 {
                     maxLength,
                     tweets
+                }
+            );
+        }
+
+        // GET /api/Tweets/{id}
+        [HttpGet("{id}")]
+        public IActionResult GetTweetByID( [FromRoute] Guid id)
+        {
+            return Ok
+            (
+               new
+               {
+                   TweetId = id,
+                   UserId = Guid.NewGuid(),
+                   Content = "tweet adasad ",
+                   CreatedAt = DateTime.UtcNow
+               }
+            );
+        }
+
+        // POST /api/Tweets
+        [HttpPost]
+        public IActionResult CreateTweet()
+        {
+            return Ok
+            (
+                new
+                {
+                    TweetId = Guid.NewGuid(),
+                    UserId = Guid.NewGuid(),
+                    Content = "tweet content",
+                    CreatedAt = DateTime.UtcNow
+                }
+            );
+        }
+
+        // PATCH /api/Tweets/{id}
+        [HttpPatch("{id}")]
+        public IActionResult UpdateTweet([FromRoute] Guid id)
+        {
+            return Ok
+            (
+                new
+                {
+                    TweetId = id,
+                    UserId = Guid.NewGuid(),
+                    Content = "tweet content updated",
+                    ModifiedAt = DateTime.UtcNow
+                }
+            );
+        }
+
+        // DELETE /api/Tweets/{id}
+        [HttpDelete("{id}")]
+        public IActionResult DeleteTweet( [FromRoute] Guid id)
+        {
+            return Ok
+            (
+                new
+                {
+                    TweetId = id,
+                    Message = "tweet deleted successfully!"
                 }
             );
         }
