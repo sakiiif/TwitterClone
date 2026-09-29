@@ -1,3 +1,4 @@
+using TwitterClone.API.Data;
 using TwitterClone.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,9 @@ builder.Services.AddControllers();
 //builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<UserRepository>(); // for DI
+builder.Services.AddSingleton<TweetRepository>(); // for DI
 
 // registration
 
