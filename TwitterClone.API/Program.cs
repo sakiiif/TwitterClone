@@ -1,5 +1,6 @@
-using TwitterClone.API.Data;
-using TwitterClone.Domain.Entities;
+using TwitterClone.Application.Interfaces;
+using TwitterClone.Application.Services;
+using TwitterClone.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +12,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<UserRepository>(); // for DI
-builder.Services.AddSingleton<TweetRepository>(); // for DI
+builder.Services.AddSingleton<IUserRepository, UserRepository>(); // DI
+builder.Services.AddSingleton<ITweetRepository, TweetRepository>();
+
+builder.Services.AddScoped<IUserService, UserService>(); // DI
+builder.Services.AddScoped<ITweetService, TweetService>();
 
 // registration
 
