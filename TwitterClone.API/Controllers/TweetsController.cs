@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TwitterClone.API.Data;
-using TwitterClone.API.Dtos.Tweet;
+using TwitterClone.Application.Dtos.Tweet;
+using TwitterClone.Application.Interfaces;
 using TwitterClone.Domain.Entities;
 
 namespace TwitterClone.API.Controllers
@@ -14,107 +14,72 @@ namespace TwitterClone.API.Controllers
     public class TweetsController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        private readonly TweetRepository _tweetRepository;
-        public TweetsController( IConfiguration configuration, TweetRepository tweetRepository )
+        private readonly ITweetService _tweetService;
+        public TweetsController( IConfiguration configuration, ITweetService tweetService )
         {
             _configuration = configuration;
-            _tweetRepository = tweetRepository;
+            _tweetService = tweetService;
         }
 
-        // GET /api/Tweets
+        // GET /api/Tweets?userId={userId}
         [HttpGet]
-        public IActionResult GetTweets()
+        [ProducesResponseType(typeof(List<TweetDto>), StatusCodes.Status200OK)]
+        public IActionResult GetTweets([FromQuery] Guid? userId)
         {
-            var tweets = _tweetRepository.GetTweets();
-            var tweetsDto = tweets.Select(x =>
-                new TweetDto
-                {
-                    Id = x.Id,
-                    UserId = x.UserId,
-                    Content = x.Content,
-                }
-            );
-            return Ok(tweetsDto);
+            return Ok( _tweetService.GetTweets(userId) );
         }
 
         // GET /api/Tweets/{id}
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(TweetDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetTweetByID( [FromRoute] Guid id)
         {
-            var tweet = _tweetRepository.GetTweetById(id);
-            if(tweet == null)
-            {
-                return NotFound();
-            }
-            var tweetDto = new TweetDto
-            {
-                Id = tweet.Id,
-                UserId = tweet.UserId,
-                Content = tweet.Content,
-            };
-            return Ok(tweetDto);
+            var tweet = _tweetService.GetTweetById(id);
+            if(tweet == null) return NotFound();
+            return Ok( tweet );
         }
 
         // POST /api/Tweets
         [HttpPost]
-        public IActionResult CreateTweet([FromBody] CreateTweetDto tweetb)
+        [ProducesResponseType(typeof(TweetDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult CreateTweet([FromBody] CreateTweetDto createTweetDto)
         {
-            if( string.IsNullOrWhiteSpace(tweetb.Content) )
+            var createdTweet = _tweetService.CreateTweet(createTweetDto);
+
+            if (createdTweet == null)
             {
-                return BadRequest("Tweet cant be empty!");
+                // Content is already validated by [ApiController], so the only failure left is an unknown user.
+                return NotFound($"User '{createTweetDto.UserId}' does not exist.");
             }
 
-            var tweet = new Tweet(tweetb.Content, tweetb.UserId);
-            _tweetRepository.AddTweet(tweet);
-
-            var tweetDto = new TweetDto
-            {
-                Id = tweet.Id,
-                UserId = tweet.UserId,
-                Content = tweet.Content
-            };
-            return Ok(tweetDto);
+            return CreatedAtAction(nameof(GetTweetByID), new { id = createdTweet.Id }, createdTweet);
         }
 
         // PUT /api/Tweets/{id}
         [HttpPut("{id}")]
-        public IActionResult UpdateTweet([FromRoute] Guid id, [FromBody] UpdateTweetDto contentb)
+        [ProducesResponseType(typeof(TweetDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdateTweet([FromRoute] Guid id, [FromBody] UpdateTweetDto updateTweetDto)
         {
-            if( string.IsNullOrWhiteSpace(contentb.Content) )
-            {
-                return BadRequest("Tweet cant be empty!");
-            }
-
-            var tweet = _tweetRepository.GetTweetById(id);
-            if(tweet == null)
-            {
-                return NotFound();
-            }
-            tweet.Content = contentb.Content;
-            _tweetRepository.UpdateTweet(tweet);
-
-            var tweetDto = new TweetDto
-            {
-                Id = tweet.Id,
-                UserId = tweet.UserId,
-                Content = tweet.Content
-            };
-            return Ok(tweetDto);
+            var tweet = _tweetService.UpdateTweet(id, updateTweetDto);
+            if(tweet == null) return NotFound();
+            return Ok(tweet);
 
         }
 
         // DELETE /api/Tweets/{id}
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeleteTweet( [FromRoute] Guid id)
         {
-            var tweet = _tweetRepository.GetTweetById(id);
-            if( tweet == null )
-            {
-                return NotFound();
-            }
-            var isDeleted = _tweetRepository.DeleteTweet(tweet);
-            if (isDeleted == true) return Ok(isDeleted);
-            else return StatusCode(500, "Something went wrong!");
+            var isDeleted = _tweetService.DeleteTweet(id);
+            if(isDeleted == false) return NotFound();
+            return NoContent();
         }
 
         [HttpGet("AppName-check")]

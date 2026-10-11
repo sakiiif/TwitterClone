@@ -20,10 +20,10 @@ namespace TwitterClone.Domain.Entities
 
         // methods
 
-        public void ModifyAt(DateTime modifiedAt)
+        public void ModifyAt()
         {
             // conditions checking, erron handling
-            ModifiedAt = modifiedAt;
+            ModifiedAt = DateTime.UtcNow;
         }
 
         

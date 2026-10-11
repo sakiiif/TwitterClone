@@ -9,9 +9,9 @@ namespace TwitterClone.Domain.Entities
         private Guid _userId;
         private string _Content;
 
-        private static int _maxContentLength = 200; // class variable
+        public static int MaxContentLength = 200; // class variable
 
-        public Tweet(string content, Guid userId) : base() // constructor
+        public Tweet(Guid userId, string content) : base() // constructor
         { 
             _Content = content;
             _userId = userId;
@@ -23,10 +23,10 @@ namespace TwitterClone.Domain.Entities
         public string Content { 
             get { return _Content; }
             set {
-                if( Content.Length <= _maxContentLength && !string.IsNullOrWhiteSpace(Content) )
+                if( Content.Length <= MaxContentLength && !string.IsNullOrWhiteSpace(Content) )
                 {
                     _Content = value;
-                    ModifyAt(DateTime.UtcNow);
+                    this.ModifyAt();
                 }
 
             }

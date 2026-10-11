@@ -26,8 +26,8 @@ namespace Test
 
             var likeable = new List<ILikeable>() // upcasting
             {
-                new Tweet("first tweet", Guid.NewGuid() ),
-                new Tweet("", Guid.NewGuid() ),
+                new Tweet( Guid.NewGuid(), "first tweet" ),
+                new Tweet( Guid.NewGuid(), "" ),
                 new Comment(Guid.NewGuid(), Guid.NewGuid(), "1 cmnt"),
                 new Comment(Guid.NewGuid(), Guid.NewGuid(), "  ")
             };
