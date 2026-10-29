@@ -7,7 +7,7 @@ namespace TwitterClone.Domain.Entities
     public sealed class SystemNotification : Notification
     {
         private string _criticalLevel; // how much critical
-        public SystemNotification(Guid userId) : base(userId, "System") // constructor
+        public SystemNotification() : base( "System") // constructor
         {
 
         }

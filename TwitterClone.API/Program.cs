@@ -1,6 +1,5 @@
-using TwitterClone.Application.Interfaces;
-using TwitterClone.Application.Services;
-using TwitterClone.Infrastructure.Repositories;
+using TwitterClone.Application;
+using TwitterClone.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,11 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IUserRepository, UserRepository>(); // DI
-builder.Services.AddSingleton<ITweetRepository, TweetRepository>();
-
-builder.Services.AddScoped<IUserService, UserService>(); // DI
-builder.Services.AddScoped<ITweetService, TweetService>();
+// Clean architecture layers: each layer registers its own services.
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
 
 // registration
 

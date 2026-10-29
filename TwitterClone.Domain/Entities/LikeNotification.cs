@@ -10,7 +10,7 @@ namespace TwitterClone.Domain.Entities
         private Guid _likedByUserId;
         private Guid _likeId;
 
-        public LikeNotification (Guid userId, Guid likedBy) : base(userId, "Like") // constructor
+        public LikeNotification (Guid likedBy) : base("Like") // constructor
         {
             _likedByUserId = likedBy;
         }
