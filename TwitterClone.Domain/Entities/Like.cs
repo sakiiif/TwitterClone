@@ -9,14 +9,13 @@ namespace TwitterClone.Domain.Entities
         private Guid _userId;
         private Guid _tweetId;
 
-        public Like ( Guid userId, Guid tweetId ) : base() // constructor
+        public Like ( ) : base() // constructor
         {
-            _userId = userId;
-            _tweetId = tweetId;
+
         }
 
         // properties
-        public Guid UserId { get { return _userId; } }
-        public Guid TweetId { get { return _tweetId; } }
+        public Guid UserId { get { return _userId; } set { _userId = value; } }
+        public Guid TweetId { get { return _tweetId; } set { _tweetId = value; } }
     }
 }
