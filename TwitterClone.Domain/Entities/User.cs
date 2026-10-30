@@ -10,7 +10,7 @@ namespace TwitterClone.Domain.Entities
         private string _lasttName;
         private string _email;
         private string? _phoneNumber;
-
+        private string _passwordHash;
         private List<Guid> _following;
         private List<Notification> _unreadNotifications;
 
@@ -41,6 +41,11 @@ namespace TwitterClone.Domain.Entities
         {
             get { return _phoneNumber; }
             set { _phoneNumber = value; }
+        }
+        public string PasswordHash
+        {
+            get { return _passwordHash; }
+            set { _passwordHash = value; }
         }
 
         // interface contracts
