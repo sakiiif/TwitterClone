@@ -9,7 +9,7 @@ namespace TwitterClone.Domain.Entities
         private Guid _requestedByUserId;
         private Guid _requestedToUserId;
         private bool _isAccepted; // accept or reject
-        public FriendRequestNotification(Guid userId, Guid requestedBy) : base(userId, "FriendRequest") // constructor
+        public FriendRequestNotification(Guid requestedBy) : base( "FriendRequest") // constructor
         {
             _requestedByUserId = requestedBy;
             _isAccepted = false;

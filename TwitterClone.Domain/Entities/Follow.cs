@@ -6,18 +6,17 @@ namespace TwitterClone.Domain.Entities
 {
     public class Follow : BaseEntity
     {
-        private Guid _userId;
+        private Guid _followerId;
         private Guid _followingId;
 
-        public Follow (Guid userId, Guid followingId) : base() // constructor
+        public Follow ( ) : base() // constructor
         {
-            _userId = userId;
-            _followingId = followingId;
+ 
         }
 
         // properties
 
-        public Guid UserId { get { return _userId; } }
-        public Guid FollowingId { get { return _followingId; } }
+        public Guid FollowerId { get { return _followerId; } set { _followerId = value; } }
+        public Guid FollowingId { get { return _followingId; } set { _followingId = value; } }
     }
 }

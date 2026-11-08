@@ -10,7 +10,7 @@ namespace TwitterClone.Domain.Entities
         private Guid _mentionedToUserId;
         private Guid _tweetId;
 
-        public MentionNotification(Guid userId, Guid mentionedByUserId) : base(userId, "Mention")
+        public MentionNotification( Guid mentionedByUserId) : base( "Mention")
         {
             _mentionedByUserId = mentionedByUserId;
         }

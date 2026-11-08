@@ -10,15 +10,14 @@ namespace TwitterClone.Domain.Entities
         private Guid _userId;
         private string _comment; // for sharing with a caption
 
-        public Retweet( Guid tweetId, Guid userId) : base() // constructor
+        public Retweet( ) : base() // constructor
         { 
-            _tweetId = tweetId;
-            _userId = userId;
+ 
         }
 
         // properties
-        public Guid TweetId { get { return _tweetId; } }
-        public Guid UserId { get { return _userId; } }
+        public Guid TweetId { get { return _tweetId; } set { _tweetId = value; } }
+        public Guid UserId { get { return _userId; } set { _userId = value; } }
         public string Comment { get { return _comment; } set { _comment = value; } }
     }
 }
