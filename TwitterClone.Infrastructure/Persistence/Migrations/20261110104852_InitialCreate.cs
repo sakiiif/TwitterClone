@@ -44,7 +44,7 @@ namespace TwitterClone.Infrastructure.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Follows", x => x.Id);
-                    table.CheckConstraint("ck_follows_no_self_follow", "FollowerId <> FollowingId");
+                    table.CheckConstraint("ck_follows_no_self_follow", "\"FollowerId\" <> \"FollowingId\"");
                     table.ForeignKey(
                         name: "fk_follower_users",
                         column: x => x.FollowerId,
@@ -76,7 +76,7 @@ namespace TwitterClone.Infrastructure.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Messages", x => x.Id);
-                    table.CheckConstraint("ck_messages_sender_receiver", "SenderId <> ReceiverId");
+                    table.CheckConstraint("ck_messages_sender_receiver", "\"SenderId\" <> \"ReceiverId\"");
                     table.ForeignKey(
                         name: "fk_receivers_users",
                         column: x => x.ReceiverId,
@@ -191,7 +191,7 @@ namespace TwitterClone.Infrastructure.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Likes", x => x.Id);
-                    table.CheckConstraint("ck_likes_user_tweet", "UserId <> TweetId");
+                    table.CheckConstraint("ck_likes_user_tweet", "\"UserId\" <> \"TweetId\"");
                     table.ForeignKey(
                         name: "fk_likes_tweets",
                         column: x => x.TweetId,

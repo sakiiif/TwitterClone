@@ -36,7 +36,7 @@ namespace TwitterClone.Domain.Entities
             get { return _email; }
             set { _email = value; }
         }
-        public string PhoneNumber
+        public string? PhoneNumber
         {
             get { return _phoneNumber; }
             set { _phoneNumber = value; }

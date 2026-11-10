@@ -83,7 +83,7 @@ namespace TwitterClone.Infrastructure.Persistence.Migrations
 
                     b.ToTable("Follows", null, t =>
                         {
-                            t.HasCheckConstraint("ck_follows_no_self_follow", "FollowerId <> FollowingId");
+                            t.HasCheckConstraint("ck_follows_no_self_follow", "\"FollowerId\" <> \"FollowingId\"");
                         });
                 });
 
@@ -117,7 +117,7 @@ namespace TwitterClone.Infrastructure.Persistence.Migrations
 
                     b.ToTable("Likes", null, t =>
                         {
-                            t.HasCheckConstraint("ck_likes_user_tweet", "UserId <> TweetId");
+                            t.HasCheckConstraint("ck_likes_user_tweet", "\"UserId\" <> \"TweetId\"");
                         });
                 });
 
@@ -165,7 +165,7 @@ namespace TwitterClone.Infrastructure.Persistence.Migrations
 
                     b.ToTable("Messages", null, t =>
                         {
-                            t.HasCheckConstraint("ck_messages_sender_receiver", "SenderId <> ReceiverId");
+                            t.HasCheckConstraint("ck_messages_sender_receiver", "\"SenderId\" <> \"ReceiverId\"");
                         });
                 });
 
@@ -311,7 +311,6 @@ namespace TwitterClone.Infrastructure.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 

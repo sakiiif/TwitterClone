@@ -42,7 +42,7 @@ namespace TwitterClone.Infrastructure.Persistence.Configurations
             // Check Constraint
             builder.ToTable(t => t.HasCheckConstraint(
                 "ck_likes_user_tweet",
-                "UserId <> TweetId"
+                "\"UserId\" <> \"TweetId\""
             ));
         }
     }

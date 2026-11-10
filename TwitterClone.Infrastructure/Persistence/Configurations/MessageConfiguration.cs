@@ -53,7 +53,7 @@ namespace TwitterClone.Infrastructure.Persistence.Configurations
             // Check Constraint
             builder.ToTable(t => t.HasCheckConstraint(
                 "ck_messages_sender_receiver",
-                "SenderId <> ReceiverId"
+                "\"SenderId\" <> \"ReceiverId\""
             ));
 
             // Indexes

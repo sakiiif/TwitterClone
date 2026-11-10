@@ -41,7 +41,7 @@ namespace TwitterClone.Infrastructure.Persistence.Configurations
             // Check Constraint - no self-following (follower_id != following_id)
             builder.ToTable(t => t.HasCheckConstraint(
                 "ck_follows_no_self_follow",
-                "FollowerId <> FollowingId"
+                "\"FollowerId\" <> \"FollowingId\""
             ));
 
             // Unique Constraint
