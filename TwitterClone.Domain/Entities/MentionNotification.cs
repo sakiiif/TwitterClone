@@ -15,6 +15,10 @@ namespace TwitterClone.Domain.Entities
             _mentionedByUserId = mentionedByUserId;
         }
 
+        private MentionNotification() : base("Mention") // for EF Core
+        {
+        }
+
         // properties
 
         public Guid MentionedByUserId { get { return _mentionedByUserId; } set { _mentionedByUserId = value; } }

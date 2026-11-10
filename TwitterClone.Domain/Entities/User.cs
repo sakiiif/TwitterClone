@@ -11,13 +11,12 @@ namespace TwitterClone.Domain.Entities
         private string _email;
         private string? _phoneNumber;
         private string _passwordHash;
-        private List<Guid> _following;
-        private List<Notification> _unreadNotifications;
+        private List<Guid> _following = new List<Guid>();
+        private List<Notification> _unreadNotifications = new List<Notification>();
 
         public User() : base() // constructor
         {
-            _following = new List<Guid>();
-            _unreadNotifications = new List<Notification>();
+
         }
 
         // properties

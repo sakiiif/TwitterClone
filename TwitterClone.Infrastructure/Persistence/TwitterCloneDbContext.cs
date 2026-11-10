@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TwitterClone.Domain.Entities;
 
 namespace TwitterClone.Infrastructure.Persistence
@@ -27,6 +24,15 @@ namespace TwitterClone.Infrastructure.Persistence
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(TwitterCloneDbContext).Assembly); // apply all configurations from this assembly/project(Infrastructure)
+
+            // required for TPH (Table Per Hierarchy) inheritance mapping for Notification entity and its derived classes
+            modelBuilder.Entity<Notification>()
+                .HasDiscriminator(n => n.Type)
+                .HasValue<CommentNotification>("Comment")
+                .HasValue<FriendRequestNotification>("FriendRequest")
+                .HasValue<LikeNotification>("Like")
+                .HasValue<MentionNotification>("Mention")
+                .HasValue<SystemNotification>("System");
         }
     }
 }

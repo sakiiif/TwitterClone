@@ -17,6 +17,10 @@ namespace TwitterClone.Domain.Entities
             _userId = userId;
         }
 
+        private Tweet() : base() // for EF Core
+        {
+        }
+
         // properties
 
         public Guid UserId { get { return _userId; } }
