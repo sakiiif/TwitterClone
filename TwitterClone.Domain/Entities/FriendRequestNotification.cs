@@ -15,6 +15,10 @@ namespace TwitterClone.Domain.Entities
             _isAccepted = false;
         }
 
+        private FriendRequestNotification() : base("FriendRequest") // for EF Core
+        {
+        }
+
         public Guid RequestedByUserId { get { return _requestedByUserId; } set { _requestedByUserId = value; } }
         public Guid RequestedToUserId { get { return _requestedToUserId; } set { _requestedToUserId = value; } }
         public bool IsAccepted { get { return _isAccepted; } set { _isAccepted = value; } }

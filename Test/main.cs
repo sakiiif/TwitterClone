@@ -11,11 +11,11 @@ namespace Test
         {
             var notifications = new List<Notification>() // upcasting
             {
-                new LikeNotification(Guid.NewGuid(), Guid.NewGuid()),
-                new CommentNotification(Guid.NewGuid(), Guid.NewGuid()),
-                new FriendRequestNotification(Guid.NewGuid(), Guid.NewGuid()),
-                new MentionNotification(Guid.NewGuid(), Guid.NewGuid()),
-                new SystemNotification(Guid.NewGuid())
+                new LikeNotification(Guid.NewGuid() ),
+                new CommentNotification( Guid.NewGuid() ),
+                new FriendRequestNotification(Guid.NewGuid() ),
+                new MentionNotification( Guid.NewGuid() ),
+                new SystemNotification()
             };
 
             foreach (var notification in notifications)

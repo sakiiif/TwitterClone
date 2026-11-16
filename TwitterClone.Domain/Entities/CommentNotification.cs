@@ -14,6 +14,11 @@ namespace TwitterClone.Domain.Entities
             _commentByUserId = commenterId;
         }
 
+        private CommentNotification() : base("Comment") // for EF Core
+        {
+
+        }
+
         // properties
 
         public Guid TweetId { get { return _tweetId; } set { _tweetId = value; } }

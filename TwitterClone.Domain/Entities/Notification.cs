@@ -11,10 +11,15 @@ namespace TwitterClone.Domain.Entities
         private string _message;
         private bool _isRead;
 
-        public Notification (string type) : base() // constructor
+        protected Notification (string type) : base() // constructor
         {
             _type = type;
             _isRead = false;
+        }
+
+        protected Notification() : base() // for EF Core
+        {
+
         }
 
         // properties
