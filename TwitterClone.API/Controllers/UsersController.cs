@@ -10,7 +10,7 @@ namespace TwitterClone.API.Controllers
     // api/Users
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IConfiguration _configuration;

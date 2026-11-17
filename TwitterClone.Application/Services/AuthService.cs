@@ -24,6 +24,11 @@ namespace TwitterClone.Application.Services
         {
             var user = _userRepository.GetUserByEmail(loginDto.Email);
 
+            if(user == null) // email not found in database
+            {
+                return null;
+            }
+
             var userAuthorized = _passwordHasher.VerifyPassword(user.ToDto(), loginDto.Password, user.PasswordHash);
 
             if (userAuthorized)
